@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-[#f6f7f9]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neat Travel Protect - Gérer le contrat</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans / Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            neat: {
+              dark: '#1e2538',      // Couleur Navy pour boutons et titres principaux
+              darkHover: '#131927',
+              bg: '#f6f7f9',        // Fond gris très clair
+              border: '#e5e7eb',
+              pinkAccent: '#ffdada', // Surlignage rose pastel
+              greenBadge: '#e6f7f0', // Fond badge Authentique
+              greenText: '#0f9f6e'   // Texte badge Authentique
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .title-highlight {
+      position: relative;
+      display: inline-block;
+      z-index: 1;
+    }
+    .title-highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: -2px;
+      right: -2px;
+      height: 10px;
+      background-color: #ffdada;
+      z-index: -1;
+      border-radius: 2px;
+    }
+
+    .neat-card {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid rgba(229, 231, 235, 0.8);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased text-[#2d3748] bg-[#f6f7f9] min-h-full flex flex-col">
+
+  <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo Neat Travel Protect -->
+      <div class="flex items-center space-x-2">
+        <a href="#" class="flex items-center gap-1.5">
+          <div class="bg-black text-white font-black text-xl px-3 py-1.5 rounded-lg tracking-tight flex items-center">
+            Neat
+          </div>
+          <div class="flex flex-col leading-none text-left">
+            <span class="text-xs font-semibold text-gray-800 tracking-wider">travel</span>
+            <span class="text-[9px] font-bold text-gray-500 tracking-widest uppercase">PROTECT</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navigation principale -->
+      <nav class="hidden md:flex items-center space-x-8 text-[15px] font-medium text-gray-700">
+        <a href="#" class="hover:text-neat-dark transition-colors">Guide de voyage</a>
+        <a href="#" class="hover:text-neat-dark transition-colors">Notre assurance</a>
+        <a href="#" class="hover:text-neat-dark transition-colors">Nous contacter</a>
+        
+        <!-- Onglet Actif : Gérer le contrat -->
+        <div class="relative py-6">
+          <a href="#" class="text-neat-dark font-semibold flex items-center gap-1.5">
+            Gérer le contrat
+            <i class="fa-regular fa-circle-question text-gray-400 text-sm"></i>
+          </a>
+          <div class="absolute bottom-0 left-0 right-0 h-[2.5px] bg-neat-dark rounded-full"></div>
+        </div>
+      </nav>
+
+      <!-- Actions de droite -->
+      <div class="flex items-center space-x-4">
+        <!-- Sélecteur de langue -->
+        <button class="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors" title="Changer de langue">
+          <i class="fa-solid fa-globe text-sm"></i>
+        </button>
+
+        <!-- Bouton S'assurer -->
+        <a href="#" class="bg-neat-dark hover:bg-neat-darkHover text-white font-medium px-6 py-2.5 rounded-full text-sm transition-all duration-200 shadow-sm">
+          S'assurer
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-10 space-y-8">
+
+    <!-- Toast Notification Flottante -->
+    <div id="toast-message" class="hidden fixed bottom-6 right-6 bg-neat-dark text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center space-x-3 z-50 transition-all duration-300 transform translate-y-0">
+      <i id="toast-icon" class="fa-solid fa-circle-check text-green-400 text-lg"></i>
+      <span id="toast-text" class="text-sm font-medium">Action effectuée avec succès.</span>
+    </div>
+
+    <!-- SECTION 1: Modifier son contrat d'assurance -->
+    <section class="neat-card p-6 sm:p-10">
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-neat-dark mb-6 tracking-tight">
+        <span class="title-highlight">Modifier son contrat</span> d'assurance
+      </h1>
+
+      <p class="text-gray-600 text-base leading-relaxed mb-4 max-w-3xl">
+        Modifiez en quelques secondes votre contrat d'assurance voyage Neat Travel Visa.
+      </p>
+
+      <p class="text-gray-600 text-base leading-relaxed mb-4 max-w-3xl">
+        <strong class="font-semibold text-gray-800">Les modifications sont illimitées</strong> jusqu'à la veille du départ. Il vous suffit d'indiquer la référence présente sur votre attestation d'adhésion, l'email utilisé lors de la souscription et d'appuyer sur « Modifier mon contrat ».
+      </p>
+
+      <p class="text-gray-600 text-base leading-relaxed mb-8 max-w-3xl">
+        En cas de refus de visa, <strong class="font-semibold text-gray-800">nous vous remboursons intégralement.</strong>
+      </p>
+
+      <div>
+        <button onclick="handleModifyContract()" class="bg-neat-dark hover:bg-neat-darkHover text-white font-medium px-6 py-3 rounded-full text-sm transition-all shadow-md active:scale-95">
+          Modifier mon contrat
+        </button>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Colonne Gauche: Formulaire de recherche -->
+      <div class="lg:col-span-5 neat-card p-6 sm:p-8">
+        <h2 class="text-2xl font-extrabold text-neat-dark mb-6 tracking-tight">
+          <span class="title-highlight">Vérifier son contrat</span><br class="hidden sm:inline"> d'assurance
+        </h2>
+
+        <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-4">
+          Vérifiez en quelques secondes l'authenticité et la validité de votre certificat d'assurance voyage Neat Travel Visa.
+        </p>
+
+        <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-8">
+          Grâce à notre outil en ligne sécurisé, il vous suffit d'indiquer la référence présente sur votre attestation d'adhésion et d'appuyer sur « Vérifier mon contrat » pour vérifier l'authenticité.
+        </p>
+
+        <form onsubmit="handleVerifyContract(event)" class="space-y-5">
+          <div>
+            <label for="contractRef" class="block text-sm font-semibold text-gray-800 mb-2">
+              Votre référence contrat
+            </label>
+            <input 
+              type="text" 
+              id="contractRef" 
+              value="PAYJGEKXZJTK" 
+              required
+              class="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-800 font-medium tracking-wide focus:ring-2 focus:ring-neat-dark focus:border-transparent outline-none transition bg-white"
+              placeholder="Ex: PAYJGEKXZJTK"
+            />
+          </div>
+
+          <button 
+            type="submit" 
+            class="bg-neat-dark hover:bg-neat-darkHover text-white font-medium px-6 py-3 rounded-full text-sm transition-all shadow-md active:scale-95 w-full sm:w-auto flex items-center justify-center space-x-2"
+          >
+            <span id="btn-text">Vérifier mon contrat</span>
+            <i id="btn-spinner" class="fa-solid fa-spinner fa-spin hidden"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="lg:col-span-7 neat-card p-6 sm:p-8 flex flex-col justify-between min-h-full" id="details-card">
+        
+        <div>
+          <!-- En-tête Carte & Badge Authentique -->
+          <div class="flex items-center justify-between border-b border-gray-100 pb-5 mb-6">
+            <h3 class="text-xl font-bold text-neat-dark">Informations du contrat</h3>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-neat-greenBadge text-neat-greenText">
+              Authentique
+            </span>
+          </div>
+
+          <!-- Grille des détails du contrat -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 text-sm">
+            
+            <!-- Item 1: Produit d'assurance -->
+            <div>
+              <p class="text-gray-900 font-bold mb-1">Produit d'assurance</p>
+              <p class="text-gray-500 font-medium" id="field-product">Neat Travel Visa</p>
+            </div>
+
+            <!-- Item 2: Voyageur(s) -->
+            <div>
+              <p class="text-gray-900 font-bold mb-1">Voyageur(s)</p>
+              <div class="text-gray-500 font-medium uppercase space-y-0.5" id="field-travelers">
+                <p>MON FILS KABA MASASU</p>
+              </div>
+            </div>
+
+            <!-- Item 3: Protection COVID -->
+            <div>
+              <p class="text-gray-900 font-bold mb-1">Protection COVID</p>
+              <p class="text-gray-500 font-medium" id="field-covid">Non</p>
+            </div>
+
+            <!-- Item 4: Formule Gold -->
+            <div>
+              <p class="text-gray-900 font-bold mb-1">Formule Gold</p>
+              <p class="text-gray-500 font-medium" id="field-gold">Non</p>
+            </div>
+
+            <!-- Item 5: Destination -->
+            <div>
+              <p class="text-gray-900 font-bold mb-1">Destination</p>
+              <p class="text-gray-500 font-medium" id="field-destination">Espagne</p>
+            </div>
+
+            <!-- Item 6: Départ -->
+            <div>
+              <p class="text-gray-900 font-bold mb-1">Départ</p>
+              <p class="text-gray-500 font-medium" id="field-origin">République Démocratique du Congo</p>
+            </div>
+
+            <!-- Item 7: Date de départ -->
+            <div>
+              <p class="text-gray-900 font-bold mb-1">Date de départ</p>
+              <p class="text-gray-500 font-medium" id="field-start-date">29 octobre 2026</p>
+            </div>
+
+            <!-- Item 8: Date de retour -->
+            <div>
+              <p class="text-gray-900 font-bold mb-1">Date de retour</p>
+              <p class="text-gray-500 font-medium" id="field-end-date">12 novembre 2026</p>
+            </div>
+
+            <!-- Item 9: Couverture -->
+            <div>
+              <p class="text-gray-900 font-bold mb-1">Couverture</p>
+              <p class="text-gray-500 font-medium" id="field-coverage">Jusqu'à 30 000 €</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Bouton Télécharger le contrat -->
+        <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end">
+          <button 
+            onclick="handleDownloadContract()" 
+            class="bg-neat-dark hover:bg-neat-darkHover text-white font-medium px-6 py-3 rounded-xl text-sm transition-all shadow-md active:scale-95 flex items-center space-x-2"
+          >
+            <i class="fa-solid fa-download text-xs"></i>
+            <span>Télécharger mon contrat</span>
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-gray-200 py-8 mt-12 text-center text-xs text-gray-500">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>© 2026 Neat Travel Protect. Tous droits réservés.</p>
+      <div class="flex space-x-6">
+        <a href="#" class="hover:underline">Mentions légales</a>
+        <a href="#" class="hover:underline">Politique de confidentialité</a>
+        <a href="#" class="hover:underline">CGU</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Base de données simulée mise à jour avec MON FILS KABA MASASU
+    const database = {
+      'PAYJGEKXZJTK': {
+        product: 'Neat Travel Visa',
+        travelers: ['PARFAIT NTEMO SALAWA'],
+        covid: 'Non',
+        gold: 'Non',
+        destination: 'Grèce',
+        origin: 'République Démocratique du Congo',
+        startDate: '03 novembre 2026',
+        endDate: '17 novembre 2026',
+        coverage: 'Jusqu\'à 30 000 €',
+        authentic: true
+      }
+    };
+
+    // Afficher une notification Toast
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast-message');
+      const toastText = document.getElementById('toast-text');
+      const toastIcon = document.getElementById('toast-icon');
+
+      toastText.textContent = message;
+
+      if (isError) {
+        toastIcon.className = "fa-solid fa-circle-exclamation text-red-400 text-lg";
+      } else {
+        toastIcon.className = "fa-solid fa-circle-check text-green-400 text-lg";
+      }
+
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+
+    // Gestion du formulaire de vérification
+    function handleVerifyContract(event) {
+      event.preventDefault();
+
+      const inputVal = document.getElementById('contractRef').value.trim().toUpperCase();
+      const btnText = document.getElementById('btn-text');
+      const btnSpinner = document.getElementById('btn-spinner');
+
+      btnText.textContent = "Vérification...";
+      btnSpinner.classList.remove('hidden');
+
+      setTimeout(() => {
+        btnText.textContent = "Vérifier mon contrat";
+        btnSpinner.classList.add('hidden');
+
+        const contract = database[inputVal];
+
+        if (contract) {
+          document.getElementById('field-product').textContent = contract.product;
+          document.getElementById('field-covid').textContent = contract.covid;
+          document.getElementById('field-gold').textContent = contract.gold;
+          document.getElementById('field-destination').textContent = contract.destination;
+          document.getElementById('field-origin').textContent = contract.origin;
+          document.getElementById('field-start-date').textContent = contract.startDate;
+          document.getElementById('field-end-date').textContent = contract.endDate;
+          document.getElementById('field-coverage').textContent = contract.coverage;
+
+          const travelersContainer = document.getElementById('field-travelers');
+          travelersContainer.innerHTML = contract.travelers.map(t => `<p>${t}</p>`).join('');
+
+          showToast('Contrat vérifié avec succès !');
+        } else {
+          showToast('Référence introuvable. Code de référence : PAYJGEKXZJTK', true);
+        }
+      }, 600);
+    }
+
+    // Simulation de modification de contrat
+    function handleModifyContract() {
+      showToast('Redirection vers l\'espace de modification...');
+    }
+
+    // Simulation du téléchargement PDF
+    function handleDownloadContract() {
+      const ref = document.getElementById('contractRef').value || 'PAYJGEKXZJTK';
+      showToast(`Téléchargement de l'attestation ${ref}.pdf ...`);
+    }
+  </script>
+</body>
+</html>
